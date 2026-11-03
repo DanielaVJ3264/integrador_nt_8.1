@@ -1,0 +1,6 @@
+id,nombre,nivel,dias_max_respuesta
+4302e263-f801-4b4e-b256-94be7235a248,Critica,5,7
+14522fa4-0aaf-4ff7-b4b5-174ec7778d93,Media,3,7
+d1a4cf09-23b8-402b-82b9-2d77d3222c03,Alta,4,3
+71ad4576-a597-46be-81b9-d99885d5d2dc,Minima,1,15
+0d45d504-1edc-4989-a419-d87afa990837,Baja,2,10
