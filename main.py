@@ -1,80 +1,131 @@
-"""Punto de entrada del proyecto integrador (tabla prioridades).
+"""Punto de entrada del proyecto integrador.
 
-Ejecuta todo el flujo en orden, siempre desde la raiz del proyecto:
+Ejecuta el flujo de las cuatro tablas (prioridades, empresas, registros, retos),
+siempre desde la raiz del proyecto y con rutas relativas.
 
-    1. exportar_prioridades.py  -> data/crudo/prioridades_sucio.(csv|xlsx|json)
-    2. limpiar_prioridades.py   -> data/limpio/prioridades_limpio.csv
-    3. consultas_prioridades.py -> data/limpio/prioridades_consulta_1..5.csv
-    4. reporte_prioridades.py   -> reportes/prioridades_grafica_1..3.png
+Flujo por tabla (si el script no existe en src/, se omite ese paso):
+    1. exportar_<tabla>.py   -> data/crudo/<tabla>_sucio.(csv|xlsx|json)
+    2. limpiar_<tabla>.py    -> data/limpio/<tabla>_limpio.csv
+    3. consultas_<tabla>.py  -> data/limpio/<tabla>_consulta_1..5.csv
+       (retos no tiene limpiar: sus consultas y gráficas leen data/crudo/retos_sucio.csv)
+    4. reporte_<tabla>.py    -> reportes/<tabla>_grafica_1..3.png
 
-Uso (con el venv activo, parado en la carpeta integrador_nt_8.1):
+Uso (con el venv activo, parado en la carpeta del proyecto):
+    python main.py                                  # todas las tablas, todos los pasos
+    python main.py prioridades retos                # solo esas tablas
+    python main.py --pasos limpiar consultas        # solo esos pasos, en todas las tablas
+    python main.py empresas --pasos reporte         # una tabla y un paso
 
-    python main.py                  # corre todos los pasos
-    python main.py limpiar          # corre solo un paso
-    python main.py consultas reporte  # corre varios pasos, en el orden dado
-
-Pasos disponibles: simular, exportar, limpiar, consultas, reporte
+Tablas: prioridades, empresas, registros, retos
+Pasos:  simular, exportar, limpiar, consultas, reporte
 """
 
+import argparse
 import os
 import subprocess
 import sys
 
-# --- Rutas relativas a la raiz del proyecto ---------------------------------
 RAIZ = os.path.dirname(os.path.abspath(__file__))
 SRC = "src"
 
-RUTA_SUCIO = os.path.join("data", "crudo", "prioridades_sucio.csv")
-RUTA_LIMPIO = os.path.join("data", "limpio", "prioridades_limpio.csv")
-
-# Cada paso: nombre -> (script dentro de src/, argumentos del script)
-PASOS = {
-    "simular": ("simular_prioridades.py", []),
-    "exportar": ("exportar_prioridades.py", []),
-    "limpiar": ("limpiar_prioridades.py", [RUTA_SUCIO]),
-    "consultas": ("consultas_prioridades.py", [RUTA_LIMPIO]),
-    "reporte": ("reporte_prioridades.py", [RUTA_LIMPIO]),
-}
-
-# Flujo completo. 'simular' no va aqui porque solo imprime una revision;
-# exportar ya genera los datos sucios.
-FLUJO_COMPLETO = ["exportar", "limpiar", "consultas", "reporte"]
+TABLAS = ["prioridades", "empresas", "registros", "retos"]
+PASOS_COMPLETOS = ["exportar", "limpiar", "consultas", "reporte"]
+PASOS_VALIDOS = ["simular"] + PASOS_COMPLETOS
 
 
-def ejecutar_paso(nombre):
-    """Corre un script de src/ como proceso aparte, desde la raiz del proyecto."""
-    script, argumentos = PASOS[nombre]
-    ruta_script = os.path.join(SRC, script)
+def ruta_sucio(tabla):
+    return os.path.join("data", "crudo", f"{tabla}_sucio.csv")
 
-    if not os.path.exists(os.path.join(RAIZ, ruta_script)):
-        print(f"[ERROR] No existe {ruta_script}")
-        return False
 
-    print(f"\n{'=' * 60}\nPASO: {nombre}  ->  python {ruta_script} {' '.join(argumentos)}\n{'=' * 60}")
-    resultado = subprocess.run([sys.executable, ruta_script, *argumentos], cwd=RAIZ)
+def ruta_limpio(tabla):
+    return os.path.join("data", "limpio", f"{tabla}_limpio.csv")
 
-    if resultado.returncode != 0:
-        print(f"[ERROR] El paso '{nombre}' fallo (codigo {resultado.returncode}).")
-        return False
-    return True
+
+def ruta_entrada(tabla):
+    """Archivo que leen consultas y reporte.
+
+    Si la tabla tiene limpiar_<tabla>.py usa el limpio; si no la tiene
+    (caso de retos) usa el archivo crudo (_sucio.csv).
+    """
+    hay_limpiar = os.path.exists(os.path.join(RAIZ, SRC, f"limpiar_{tabla}.py"))
+    return ruta_limpio(tabla) if hay_limpiar else ruta_sucio(tabla)
+
+
+def argumentos_del_paso(paso, tabla):
+    """Argumentos que recibe cada script (los de exportar y simular no reciben nada)."""
+    if paso == "limpiar":
+        return [ruta_sucio(tabla)]
+    if paso in ("consultas", "reporte"):
+        return [ruta_entrada(tabla)]
+    return []
+
+
+def correr(script, argumentos):
+    """Corre un script de src/ desde la raiz y devuelve True si termina sin error."""
+    comando = [sys.executable, os.path.join(SRC, script), *argumentos]
+    print(f"\n$ python {os.path.join(SRC, script)} {' '.join(argumentos)}".rstrip())
+    return subprocess.run(comando, cwd=RAIZ).returncode == 0
+
+
+def ejecutar_paso(paso, tabla):
+    """Devuelve 'ok', 'omitido' o 'error'."""
+    script = f"{paso}_{tabla}.py"
+    if not os.path.exists(os.path.join(RAIZ, SRC, script)):
+        print(f"\n[OMITIDO] No existe {SRC}/{script}")
+        return "omitido"
+
+    argumentos = argumentos_del_paso(paso, tabla)
+
+    # consultas y reporte leen un archivo de datos: debe existir
+    if paso in ("consultas", "reporte") and not os.path.exists(os.path.join(RAIZ, ruta_entrada(tabla))):
+        print(f"\n[ERROR] Falta {ruta_entrada(tabla)}. Ejecuta primero los pasos anteriores de {tabla}.")
+        return "error"
+
+    if correr(script, argumentos):
+        return "ok"
+
+    # Algunos scripts no reciben la ruta por linea de comandos: se reintenta sin argumentos
+    if argumentos:
+        print("[AVISO] Fallo con argumento; reintentando sin argumentos...")
+        if correr(script, []):
+            return "ok"
+    return "error"
 
 
 def main():
-    pasos = sys.argv[1:] or FLUJO_COMPLETO
+    parser = argparse.ArgumentParser(description="Ejecuta el proyecto integrador.")
+    parser.add_argument("tablas", nargs="*", default=[], metavar="tabla",
+                        help=f"Tablas a procesar (por defecto todas): {', '.join(TABLAS)}")
+    parser.add_argument("--pasos", nargs="+", choices=PASOS_VALIDOS, default=PASOS_COMPLETOS,
+                        help=f"Pasos a correr (por defecto: {', '.join(PASOS_COMPLETOS)})")
+    args = parser.parse_args()
 
-    desconocidos = [p for p in pasos if p not in PASOS]
-    if desconocidos:
-        sys.exit(f"Paso(s) desconocido(s): {desconocidos}. Opciones: {list(PASOS)}")
+    invalidas = [t for t in args.tablas if t not in TABLAS]
+    if invalidas:
+        parser.error(f"tabla(s) desconocida(s): {invalidas}. Opciones: {TABLAS}")
+    tablas = args.tablas or TABLAS
 
-    # Crea las carpetas de salida si no existen
     for carpeta in (os.path.join("data", "crudo"), os.path.join("data", "limpio"), "reportes"):
         os.makedirs(os.path.join(RAIZ, carpeta), exist_ok=True)
 
-    for nombre in pasos:
-        if not ejecutar_paso(nombre):
-            sys.exit(f"Flujo detenido en el paso '{nombre}'.")
+    resumen = {}
+    for tabla in tablas:
+        print(f"\n{'#' * 60}\n# TABLA: {tabla.upper()}\n{'#' * 60}")
+        for paso in args.pasos:
+            estado = ejecutar_paso(paso, tabla)
+            resumen[(tabla, paso)] = estado
+            if estado == "error":
+                print(f"[ERROR] '{paso}' de {tabla} fallo; se salta el resto de esa tabla.")
+                break
 
-    print("\nFlujo terminado sin errores.")
+    # --- Resumen final ---
+    print(f"\n{'=' * 60}\nRESUMEN\n{'=' * 60}")
+    for (tabla, paso), estado in resumen.items():
+        print(f"{tabla:<12} {paso:<10} {estado.upper()}")
+
+    if any(e == "error" for e in resumen.values()):
+        sys.exit(1)
+    print("\nProyecto ejecutado sin errores.")
 
 
 if __name__ == "__main__":
