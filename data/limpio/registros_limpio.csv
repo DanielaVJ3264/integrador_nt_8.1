@@ -1,0 +1,26 @@
+id,fecha_registro,observacion,estado,id_usuario,id_reto,mes
+8cc8c82e-e338-4c9d-a960-96039c3fd95a,2026-07-04 21:28:48,Ad eius dolore qui perspiciatis tempora assumenda.,ACEPTADO,972a8469-1641-4f82-8b9d-2434e465e150,6b65a6a4-8b81-48f6-b38a-088ca65ed389,2026-07
+f6da0e84-635d-448a-86c7-bcc0cfecc89a,2026-04-11 10:11:12,Adipisci dolor magnam ad dicta officiis.,RECHAZADO,23b8c1e9-3924-46de-beb1-3b9046685257,b74d0fb1-32e7-4629-8fad-c1a606cb0fb3,2026-04
+9e6ed4cc-14c4-4c93-bec1-a050d18f6e22,2026-05-29 04:48:46,Dolore nihil repellat ab rem praesentium excepturi culpa vero excepturi at.,RECHAZADO,bdd640fb-0667-4ad1-9c80-317fa3b1799d,9a1de644-815e-46d1-bb8f-aa1837f8a88b,2026-05
+4f5225cf-98eb-4abc-9efd-3c75e93a9f7c,2025-12-06 03:03:08,Sed nobis rem quas modi voluptate fugiat mollitia repudiandae nulla.,EN_PROCESO,bdd640fb-0667-4ad1-9c80-317fa3b1799d,6b65a6a4-8b81-48f6-b38a-088ca65ed389,2025-12
+bbc4c63b-25ba-49a6-b3df-31ca1994c110,2026-09-29 05:16:00,Neque provident aliquid dolorem enim aspernatur doloremque aut eius odio.,RECHAZADO,17fc695a-07a0-4a6e-8822-e8f36c031199,6b65a6a4-8b81-48f6-b38a-088ca65ed389,2026-09
+a10e09c2-e29b-4cd5-8e8b-6533b5b86703,2026-03-20 06:04:00,Sin observacion,PENDIENTE,972a8469-1641-4f82-8b9d-2434e465e150,c241330b-01a9-471f-9e8a-774bcf36d58b,2026-03
+64bca0e9-2946-4bf0-a632-581a429e9a5f,2026-01-01 00:36:42,Sin observacion,PENDIENTE,972a8469-1641-4f82-8b9d-2434e465e150,9a1de644-815e-46d1-bb8f-aa1837f8a88b,2026-01
+d94517f3-5ec0-4d3d-a759-34e1cf0b6d24,2026-01-19 12:05:00,Sin observacion,FINALIZADO,bd9c66b3-ad3c-4d6d-9a3d-1fa7bc8960a9,c241330b-01a9-471f-9e8a-774bcf36d58b,2026-01
+12ce3737-3d7c-4b71-b979-a9730454616b,2026-01-22 17:48:28,Magni at aliquid autem occaecati recusandae in.,RECHAZADO,17fc695a-07a0-4a6e-8822-e8f36c031199,b74d0fb1-32e7-4629-8fad-c1a606cb0fb3,2026-01
+92f4dd15-1fb8-4d81-bdb6-179e76ce95d5,2025-11-23 05:42:41,Fugit voluptatum minus voluptas similique accusamus quam placeat modi eaque.,PENDIENTE,bdd640fb-0667-4ad1-9c80-317fa3b1799d,b74d0fb1-32e7-4629-8fad-c1a606cb0fb3,2025-11
+77ba3342-b816-4ee7-9503-5432f5b0ab20,2026-07-05 11:47:00,Beatae ipsa iste veritatis soluta ea magnam debitis totam sit.,RECHAZADO,17fc695a-07a0-4a6e-8822-e8f36c031199,c241330b-01a9-471f-9e8a-774bcf36d58b,2026-07
+8eea8ed9-fa46-4e68-9d8d-0b9554161d22,2026-02-25 23:49:00,Animi soluta veniam assumenda laborum architecto quis quisquam consectetur.,EN_PROCESO,bd9c66b3-ad3c-4d6d-9a3d-1fa7bc8960a9,b74d0fb1-32e7-4629-8fad-c1a606cb0fb3,2026-02
+9f0011c4-78e2-494c-9943-eec7c274368d,2026-05-02 03:32:00,Cumque minus non vitae ut quidem porro quae id perferendis fuga tempore iste.,RECHAZADO,bd9c66b3-ad3c-4d6d-9a3d-1fa7bc8960a9,47378190-96da-4dac-b2ff-5d2a386ecbe0,2026-05
+c6ceed0f-48d0-438f-bbcb-ee1029ffdd2d,2026-02-02 20:14:17,Aperiam accusantium mollitia nihil ab provident animi architecto.,RECHAZADO,bdd640fb-0667-4ad1-9c80-317fa3b1799d,c241330b-01a9-471f-9e8a-774bcf36d58b,2026-02
+a97c4973-f393-47a7-87fc-d803edc1653e,2026-01-11 12:20:00,Atque inventore incidunt iure quas perferendis voluptates.,ACEPTADO,972a8469-1641-4f82-8b9d-2434e465e150,47378190-96da-4dac-b2ff-5d2a386ecbe0,2026-01
+e1d55ca5-5110-4716-b589-b131c3ebbd62,2025-12-20 00:10:00,Sin observacion,RECHAZADO,17fc695a-07a0-4a6e-8822-e8f36c031199,47378190-96da-4dac-b2ff-5d2a386ecbe0,2025-12
+f968aa89-b168-4cf7-9147-f7b887325597,2026-05-07 07:02:13,Temporibus sapiente at incidunt eius a quo odio ea.,ACEPTADO,23b8c1e9-3924-46de-beb1-3b9046685257,c241330b-01a9-471f-9e8a-774bcf36d58b,2026-05
+ebf02a17-d984-4e6d-a2d0-a1dac41f7d3c,2026-06-27 14:34:29,Unde dolores cum reiciendis debitis impedit debitis.,EN_PROCESO,17fc695a-07a0-4a6e-8822-e8f36c031199,9a1de644-815e-46d1-bb8f-aa1837f8a88b,2026-06
+abbb95ad-3dd0-422d-99b5-673b7adf81d2,2026-07-20 11:09:29,Ex adipisci soluta ea neque voluptates alias nisi exercitationem ratione ipsa voluptates.,FINALIZADO,bd9c66b3-ad3c-4d6d-9a3d-1fa7bc8960a9,6b65a6a4-8b81-48f6-b38a-088ca65ed389,2026-07
+191df5a5-e3e0-40c0-8d3c-95d45a2425d6,2026-04-08 16:26:00,Ex iure aperiam rerum harum quo veniam accusantium sunt nemo labore.,RECHAZADO,23b8c1e9-3924-46de-beb1-3b9046685257,9a1de644-815e-46d1-bb8f-aa1837f8a88b,2026-04
+3d82f927-c523-4197-a20e-30d717f34cec,2026-04-16 19:52:00,Adipisci excepturi perspiciatis illo cumque iusto consectetur numquam ad hic natus ad.,PENDIENTE,972a8469-1641-4f82-8b9d-2434e465e150,b74d0fb1-32e7-4629-8fad-c1a606cb0fb3,2026-04
+08a72297-cb63-4db2-96df-d429d73b2216,2025-12-04 00:49:00,Sin observacion,PENDIENTE,bdd640fb-0667-4ad1-9c80-317fa3b1799d,47378190-96da-4dac-b2ff-5d2a386ecbe0,2025-12
+cfe6f815-165d-4798-b6c4-e28a007e8cfa,2026-03-04 02:43:00,Voluptas illo maiores voluptates omnis molestiae impedit.,EN_PROCESO,23b8c1e9-3924-46de-beb1-3b9046685257,47378190-96da-4dac-b2ff-5d2a386ecbe0,2026-03
+08bf03b2-3f19-4a43-aea8-608148714c82,2025-12-25 02:23:56,Sin observacion,ACEPTADO,23b8c1e9-3924-46de-beb1-3b9046685257,6b65a6a4-8b81-48f6-b38a-088ca65ed389,2025-12
+909fc754-7f3d-4556-bdb0-9d5d4100a9b7,2026-04-03 05:10:00,Consequuntur odio adipisci quia dolor in.,FINALIZADO,bd9c66b3-ad3c-4d6d-9a3d-1fa7bc8960a9,9a1de644-815e-46d1-bb8f-aa1837f8a88b,2026-04
