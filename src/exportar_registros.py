@@ -8,12 +8,13 @@ import os
 import sys
 from pathlib import Path
 
-# Carpeta del proyecto = dos niveles arriba de este archivo (src/exportaciones/)
-CARPETA_PROYECTO = Path(__file__).resolve().parents[2]
+# Este archivo esta en src/, asi que la raiz del proyecto es UN nivel arriba de src/
+CARPETA_SRC = Path(__file__).resolve().parent
+CARPETA_PROYECTO = CARPETA_SRC.parent
 CARPETA_CRUDO = CARPETA_PROYECTO / "data" / "crudo"
 
-# Permite importar desde src/simulaciones/
-sys.path.insert(0, str(CARPETA_PROYECTO / "src" / "simulaciones"))
+# Permite importar simular_registros desde src/
+sys.path.insert(0, str(CARPETA_SRC))
 from simular_registros import generar_registros  # noqa: E402
 
 
